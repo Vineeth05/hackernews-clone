@@ -1,21 +1,16 @@
-import os
 from flask import Flask
-
+from datetime import datetime
 app = Flask(__name__)
-app.config.from_object(os.environ['APP_SETTINGS'])
-
 
 @app.route('/')
-def hello():
-    return "Hello World!"
+def homepage():
+    the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
 
-
-@app.route('/<name>')
-def hello_name(name):
-    return "Hello {}!".format(name)
+    return """
+    <h1>Hello heroku</h1>
+    <p>It is currently {time}.</p>
+    """.format(time=the_time)
 
 if __name__ == '__main__':
-    app.run()
-
-
+    app.run(debug=True, use_reloader=True)
 
